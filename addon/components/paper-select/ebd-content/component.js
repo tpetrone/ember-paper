@@ -64,6 +64,10 @@ class PaperSelectEbdContent extends Component {
   @action
   async animateOut(dropdownElement) {
     let parentElement = this.renderInPlace ? dropdownElement.parentElement.parentElement : dropdownElement.parentElement;
+
+    // workaround for https://github.com/miguelcobain/ember-paper/issues/1151. See also https://github.com/emberjs/ember.js/issues/18795.
+    if (!parentElement) return;
+
     let clone = dropdownElement.cloneNode(true);
     clone.id = `${clone.id}--clone`;
     parentElement.appendChild(clone);
